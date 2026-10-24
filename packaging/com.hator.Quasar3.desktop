@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=HATOR Quasar 3
+GenericName=Mouse Configuration
+Comment=Configure DPI, polling rate, RGB and more for the HATOR Quasar 3 / Quasar 3 Ultra 8K
+Exec=quasar3-gui
+Icon=com.hator.Quasar3
+Terminal=false
+Categories=Settings;HardwareSettings;GTK;
+Keywords=mouse;hator;quasar;dpi;rgb;polling;compx;
+StartupNotify=true

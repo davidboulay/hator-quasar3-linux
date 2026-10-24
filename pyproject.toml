@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quasar3"
+version = "0.1.1"
+description = "Linux configuration app for the HATOR Quasar 3 and Quasar 3 Ultra 8K (Compx 379a) mice"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "David Boulay" }]
+keywords = ["hator", "quasar", "compx", "mouse", "hid", "linux"]
+
+# Core has NO third-party dependencies (stdlib hidraw via ioctl).
+dependencies = []
+
+[project.optional-dependencies]
+# GUI uses PyGObject/GTK4/libadwaita, which are provided by the system packages
+# (python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1) rather than pip wheels.
+gui = []
+dev = ["pytest>=7"]
+
+[project.scripts]
+quasar3 = "quasar3.cli:main"
+quasar3-gui = "quasar3.app.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+quasar3 = ["app/*.ui", "app/*.css"]

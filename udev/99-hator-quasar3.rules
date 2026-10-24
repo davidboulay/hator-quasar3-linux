@@ -1,0 +1,24 @@
+# HATOR Quasar 3 family (Compx 379a) — grant the logged-in desktop user access to
+# the configuration hidraw node without root.
+#
+# Install:
+#   sudo cp udev/99-hator-quasar3.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=hidraw
+#
+# TAG+="uaccess" hands the device to the active local session via systemd-logind
+# (the modern replacement for hard-coding a group). MODE/GROUP are kept as a
+# fallback for systems without logind uaccess.
+#
+# Known product IDs:
+#   0cf0  Quasar 3 Wireless      2.4 GHz dongle ("Quasar 3WL")
+#   3308  Quasar 3 Ultra 8K      8K 2.4 GHz dongle ("Quasar 3UL")
+#   3307  Quasar 3 Ultra 8K      mouse on USB cable ("Quasar 3UL")
+
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="379a", ATTRS{idProduct}=="0cf0", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="379a", ATTRS{idProduct}=="3307", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="379a", ATTRS{idProduct}=="3308", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+
+# Also match the parent USB device form (some kernels populate attrs differently).
+SUBSYSTEM=="usb", ATTRS{idVendor}=="379a", ATTRS{idProduct}=="0cf0", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="379a", ATTRS{idProduct}=="3307", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="379a", ATTRS{idProduct}=="3308", MODE="0660", GROUP="plugdev", TAG+="uaccess"
